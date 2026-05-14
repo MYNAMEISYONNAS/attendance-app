@@ -9,8 +9,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const db = new sqlite3.Database("./attendance.db");
-const JWT_SECRET = "dev-secret-change-later";
+const dbPath = process.env.DB_PATH || "./attendance.db";
+const db = new sqlite3.Database(dbPath);
+const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-change-later";
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
