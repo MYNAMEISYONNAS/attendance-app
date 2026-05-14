@@ -6,7 +6,17 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://attendance-app-five-ecru.vercel.app/"
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true
+  })
+);
 app.use(express.json());
 
 const dbPath = process.env.DB_PATH || "./attendance.db";
