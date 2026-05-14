@@ -20,12 +20,14 @@ function App() {
   const [filterDate, setFilterDate] = useState("");
   const [searchName, setSearchName] = useState("");
 
+  const API_URL = "https://attendance-app-g1g2.onrender.com";
+
   const authHeaders = {
     Authorization: `Bearer ${token}`
   };
 
   const login = async () => {
-    const response = await fetch("http://localhost:3001/login", {
+    const response = await fetch(`${API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -59,7 +61,7 @@ function App() {
   };
 
   const fetchClasses = async () => {
-    const response = await fetch("http://localhost:3001/classes", {
+    const response = await fetch(`${API_URL}/classes`, {
       headers: authHeaders
     });
 
@@ -69,7 +71,7 @@ function App() {
 
   const fetchStudents = async () => {
     const response = await fetch(
-      `http://localhost:3001/students?className=${encodeURIComponent(
+      `${API_URL}/students?className=${encodeURIComponent(
         selectedClass
       )}`,
       {
@@ -88,7 +90,7 @@ function App() {
   };
 
   const fetchRecords = async () => {
-    const response = await fetch("http://localhost:3001/attendance", {
+    const response = await fetch(`${API_URL}/attendance`, {
       headers: authHeaders
     });
 
@@ -118,7 +120,7 @@ function App() {
   };
 
   const submitAttendance = async () => {
-    await fetch("http://localhost:3001/attendance", {
+    await fetch(`${API_URL}/attendance`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -136,7 +138,7 @@ function App() {
   };
 
   const updateRecordStatus = async (id, status) => {
-    await fetch(`http://localhost:3001/attendance/${id}`, {
+    await fetch(`${API_URL}/attendance/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -152,7 +154,7 @@ function App() {
     const confirmed = confirm("Delete this attendance record?");
     if (!confirmed) return;
 
-    await fetch(`http://localhost:3001/attendance/${id}`, {
+    await fetch(`${API_URL}/attendance/${id}`, {
       method: "DELETE",
       headers: authHeaders
     });
